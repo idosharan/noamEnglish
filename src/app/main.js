@@ -260,15 +260,23 @@ function renderCurrentExercise() {
 
 function renderLetterMatch(options = {}) {
   dom.exerciseKicker.textContent = 'הקפה וזיהוי אותיות';
-  dom.exerciseTitle.textContent = 'הקף/י את התמונה שמתחילה באות המתאימה';
-  const target = pickRandom(letters);
+  dom.exerciseTitle.textContent = 'לחץ/י על התמונה שמתחילה באות המתאימה';
   const samplePool = filterByTeacherWords(vocabulary, options.words);
-  const correctItems = samplePool.filter((w) => w.en.toLowerCase().startsWith(target.toLowerCase()));
-  const wrongItems = samplePool.filter((w) => !w.en.toLowerCase().startsWith(target.toLowerCase()));
-  const picks = shuffle([...pickMany(correctItems, 1), ...pickMany(wrongItems, 3)]);
+
+  // בוחרים רק אות שיש לה לפחות פריט אחד מתאים בסמפול; אם אין, ניפול לכלל אוצר המילים
+  const validLetters = letters.filter((ltr) => samplePool.some((w) => w.en.toLowerCase().startsWith(ltr.toLowerCase())));
+  const target = pickRandom(validLetters.length ? validLetters : letters);
+
+  const poolForPick = validLetters.length ? samplePool : vocabulary;
+  const correctPool = poolForPick.filter((w) => w.en.toLowerCase().startsWith(target.toLowerCase()));
+  const wrongPool = poolForPick.filter((w) => !w.en.toLowerCase().startsWith(target.toLowerCase()));
+
+  const correctPick = pickRandom(correctPool);
+  const wrongPicks = pickMany(wrongPool, 3);
+  const picks = shuffle([correctPick, ...wrongPicks].filter(Boolean));
 
   dom.exerciseContainer.innerHTML = `
-    <p>הקף/י או לחצי על התמונה שמתחילה באות <strong>${target}</strong></p>
+    <p>לחץ/י על התמונה שמתחילה באות <strong>${target}</strong></p>
     <div class="exercise-grid" role="group" aria-label="בחירת תמונה לפי אות">
       ${picks
         .map(
