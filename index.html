@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>מעבדת אנגלית - הכנה למבחן</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+	<div class="bg-shapes" aria-hidden="true"></div>
+	<header class="topbar">
+		<div class="brand" aria-label="מעבדת אנגלית לילדים">מעבדת אנגלית</div>
+		<div class="top-actions">
+			<button class="ghost" id="btn-home" aria-label="חזרה לדף הבית">דף הבית</button>
+			<button class="ghost" id="btn-teacher" aria-pressed="false" aria-label="מצב מורה">מצב מורה</button>
+			<div class="progress-chip" id="progress-summary" aria-live="polite">התקדמות: 0%</div>
+		</div>
+	</header>
+
+	<main id="app" class="page">
+		<section class="hero" id="hero">
+			<div class="hero-text">
+				<p class="kicker">אתר הכנה למבחן באנגלית לילדים דוברי עברית</p>
+				<h1>לומדים באנגלית עם תמונות, צלילים ואנימציות</h1>
+				<p class="lede">הכל בעברית, תרגילים קצרים, משוב מיידי ושמירת התקדמות. מתאים למחשב ולטאבלט.</p>
+				<div class="hero-actions">
+					<button class="primary" id="start-btn">התחל/י תרגול</button>
+					<button class="secondary" id="story-btn">סיפור קצר + שאלות</button>
+				</div>
+			</div>
+			<div class="hero-card" role="img" aria-label="ילד לומד אנגלית עם כרטיסיות">אנגלית בכיף!</div>
+		</section>
+
+		<section class="section" aria-labelledby="topics-title">
+			<div class="section-head">
+				<div>
+					<p class="kicker">לבחירתך</p>
+					<h2 id="topics-title">נושאי תרגול</h2>
+				</div>
+				<div class="mini-status" id="last-score" aria-live="polite">עדיין לא נמדד ציון</div>
+			</div>
+			<div class="card-grid" id="topic-grid">
+				<!-- נוצר דינמית ב-JS -->
+			</div>
+		</section>
+
+		<section class="section" aria-labelledby="teacher-title" id="teacher-panel" hidden>
+			<div class="section-head">
+				<div>
+					<p class="kicker">למורה</p>
+					<h2 id="teacher-title">בנה/י מבחן מותאם</h2>
+				</div>
+			</div>
+			<form class="teacher-form" id="teacher-form">
+				<label>
+					בחר/י סוג תרגיל
+					<select id="teacher-exercise">
+						<option value="letters">אותיות</option>
+						<option value="vocabulary">אוצר מילים</option>
+						<option value="vowels">השלמת תנועות</option>
+						<option value="sentences">משפטים קצרים</option>
+						<option value="story">סיפור ושאלות</option>
+					</select>
+				</label>
+				<label>
+					מספר שאלות
+					<input type="number" id="teacher-count" min="3" max="12" value="6" />
+				</label>
+				<label>
+					רשימת מילים (לא חובה, מופרד בפסיקים)
+					<textarea id="teacher-words" placeholder="dog, cat, box"></textarea>
+				</label>
+				<div class="teacher-actions">
+					<button type="submit" class="primary">צור מבחן</button>
+					<button type="button" class="ghost" id="teacher-close">סגור</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="section panel" id="exercise-panel" hidden aria-live="polite" aria-label="אזור תרגול">
+			<div class="panel-head">
+				<div>
+					<p class="kicker" id="exercise-kicker">תרגיל</p>
+					<h2 id="exercise-title">כאן יוצג התרגיל</h2>
+				</div>
+				<div class="panel-actions">
+					<button class="ghost" id="back-btn">חזרה</button>
+					<button class="secondary" id="repeat-btn">תרגל/י שוב</button>
+				</div>
+			</div>
+			<div id="exercise-container" class="exercise-body"></div>
+			<div class="feedback" id="feedback" role="status" aria-live="assertive"></div>
+		</section>
+	</main>
+
+	<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+	<script type="module" src="src/app/main.js"></script>
+</body>
+</html>
