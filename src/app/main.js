@@ -93,21 +93,68 @@ const sentencePool = [
   { en: 'The hen and the pig are on the bed.', he: 'התרנגול והחזיר על המיטה', distractors: ['התרנגול בתוך הקופסה', 'החזיר מתחת למיטה'] },
 ];
 
-const story = {
-  title: 'The Little Hen',
-  lines: [
-    'The little hen has a red hat.',
-    'She has a small bag.',
-    'She likes the big egg.',
-    'The hen is on the mat.',
-    'She is happy.',
-  ],
-  questions: [
-    { q: 'האם לחזיר יש כובע?', answer: false },
-    { q: 'האם התרנגול על השטיח?', answer: true },
-    { q: 'האם היא שמחה?', answer: true },
-  ],
-};
+const stories = [
+  {
+    title: 'The Little Hen',
+    lines: [
+      'The little hen has a red hat.',
+      'She has a small bag.',
+      'She likes the big egg.',
+      'The hen is on the mat.',
+      'She is happy.',
+    ],
+    questions: [
+      { q: 'האם לחזיר יש כובע?', answer: false },
+      { q: 'האם התרנגול על השטיח?', answer: true },
+      { q: 'האם היא שמחה?', answer: true },
+    ],
+  },
+  {
+    title: 'The Busy Cat',
+    lines: [
+      'The cat is in the box.',
+      'She has a red pen.',
+      'She likes the big picture.',
+      'The cat is on the mat.',
+      'She is not sad.',
+    ],
+    questions: [
+      { q: 'האם החתול בתוך הקופסה?', answer: true },
+      { q: 'האם היא עצובה?', answer: false },
+      { q: 'האם יש לה עט אדום?', answer: true },
+    ],
+  },
+  {
+    title: 'Dad and the Telephone',
+    lines: [
+      'Dad has a big bag.',
+      'The telephone is in the bag.',
+      'The man is on the sofa.',
+      'He has a test today.',
+      'He is not sad.',
+    ],
+    questions: [
+      { q: 'האם הטלפון בתוך התיק?', answer: true },
+      { q: 'האם האיש על הספה?', answer: true },
+      { q: 'האם הוא עצוב?', answer: false },
+    ],
+  },
+  {
+    title: 'Pig in the Igloo',
+    lines: [
+      'The pig is in the igloo.',
+      'He has a small hat.',
+      'He likes the big bed.',
+      'The igloo is on the mat.',
+      'He is happy.',
+    ],
+    questions: [
+      { q: 'האם החזיר בתוך האיגלו?', answer: true },
+      { q: 'האם האיגלו על השטיח?', answer: true },
+      { q: 'האם הוא עצוב?', answer: false },
+    ],
+  },
+];
 
 const state = {
   progress: loadProgress(),
@@ -169,7 +216,7 @@ function buildTopicGrid() {
     { id: 'letters', title: 'זיהוי אותיות', desc: 'לחיצה על תמונה, הדגשת אות והגייה', badge: 'Aa Bb Cc' },
     { id: 'vocabulary', title: 'כרטיסיות מילים', desc: 'מילה באנגלית + תרגום ותמונה', badge: 'אוצר מילים' },
     { id: 'vowels', title: 'השלמת תנועות', desc: 'בחר/י את התנועה החסרה (A/E/I/O)', badge: 'קריאה' },
-    { id: 'sentences', title: 'משפטים ותמונה', desc: 'בחירת משפט מתאים או תרגום', badge: 'הבנת הנקרא' },
+    { id: 'sentences', title: 'משפטים קצרים', desc: 'בחירת משפט מתאים או תרגום', badge: 'הבנת הנקרא' },
     { id: 'story', title: 'סיפור קצר', desc: '5 שורות + שאלות כן/לא', badge: 'האזנה והבנה' },
   ];
 
@@ -412,6 +459,7 @@ function renderSentenceTranslate(options = {}) {
 
 function renderStoryQuiz() {
   dom.exerciseKicker.textContent = 'סיפור קצר ושאלות כן/לא';
+  const story = pickRandom(stories);
   dom.exerciseTitle.textContent = story.title;
   const q = pickRandom(story.questions);
 
