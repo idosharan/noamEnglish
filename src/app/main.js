@@ -198,6 +198,12 @@ function showHome() {
   dom.exerciseKicker.textContent = 'תרגיל';
 }
 
+function scrollToExercise() {
+  requestAnimationFrame(() => {
+    dom.exercisePanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
 function toggleTeacherMode() {
   setTeacherMode(!state.teacherMode);
 }
@@ -222,6 +228,7 @@ function startExercise(type, options = {}) {
   dom.feedback.textContent = '';
 
   renderCurrentExercise();
+  scrollToExercise();
 }
 
 function repeatExercise() {
