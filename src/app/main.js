@@ -263,17 +263,28 @@ function renderLetterMatch(options = {}) {
   dom.exerciseTitle.textContent = 'לחץ/י על התמונה שמתחילה באות המתאימה';
   const samplePool = filterByTeacherWords(vocabulary, options.words);
 
-  // בוחרים רק אות שיש לה לפחות פריט אחד מתאים בסמפול; אם אין, ניפול לכלל אוצר המילים
-  const validLetters = letters.filter((ltr) => samplePool.some((w) => w.en.toLowerCase().startsWith(ltr.toLowerCase())));
-  const target = pickRandom(validLetters.length ? validLetters : letters);
+  // בוחרים רק אות שיש לה לפחות תשובה נכונה אחת ועוד 3 הסחות (סה"כ 4 אפשרויות)
+  const lettersWithOptions = letters.filter((ltr) => {
+    const correctCount = samplePool.filter((w) => w.en.toLowerCase().startsWith(ltr.toLowerCase())).length;
+    const wrongCount = samplePool.filter((w) => !w.en.toLowerCase().startsWith(ltr.toLowerCase())).length;
+    return correctCount >= 1 && wrongCount >= 3; // 1 נכונה + 3 הסחות
+  });
 
-  const poolForPick = validLetters.length ? samplePool : vocabulary;
-  const correctPool = poolForPick.filter((w) => w.en.toLowerCase().startsWith(target.toLowerCase()));
-  const wrongPool = poolForPick.filter((w) => !w.en.toLowerCase().startsWith(target.toLowerCase()));
+  if (!lettersWithOptions.length) {
+    dom.exerciseContainer.innerHTML = '';
+    dom.exerciseTitle.textContent = 'אין מספיק אפשרויות לאותיות זמינות';
+    dom.feedback.textContent = 'אין מספיק מילים להצגת תרגיל אותיות (צריך לפחות 4 אפשרויות). התרגיל דולג.';
+    dom.feedback.className = 'feedback error';
+    return;
+  }
+
+  const target = pickRandom(lettersWithOptions);
+  const correctPool = samplePool.filter((w) => w.en.toLowerCase().startsWith(target.toLowerCase()));
+  const wrongPool = samplePool.filter((w) => !w.en.toLowerCase().startsWith(target.toLowerCase()));
 
   const correctPick = pickRandom(correctPool);
   const wrongPicks = pickMany(wrongPool, 3);
-  const picks = shuffle([correctPick, ...wrongPicks].filter(Boolean));
+  const picks = shuffle([correctPick, ...wrongPicks]);
 
   dom.exerciseContainer.innerHTML = `
     <p>לחץ/י על התמונה שמתחילה באות <strong>${target}</strong></p>
