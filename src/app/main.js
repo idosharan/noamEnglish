@@ -472,8 +472,8 @@ function renderSentenceTranslate(options = {}) {
   dom.exerciseContainer.innerHTML = `
     <div class="tile">
       <p class="badge">משפט באנגלית</p>
+      <button class="listen-btn" data-speak="${encodeURIComponent(target.en)}">הקשבה למשפט</button>
       <div class="en-text"><strong>${target.en}</strong></div>
-      <button class="secondary" data-speak="${encodeURIComponent(target.en)}">הקשבה למשפט</button>
       <div class="exercise-grid">
         ${choices
           .map((c) => `<button class="secondary" data-choice="${c}">${c}</button>`)
@@ -504,6 +504,7 @@ function renderStoryQuiz() {
 
   dom.exerciseContainer.innerHTML = `
     <div class="story-block">
+      <button class="listen-btn" data-speak-story="true">הקשבה לסיפור</button>
       <ol class="en-text">
         ${story.lines.map((line) => `<li>${line}</li>`).join('')}
       </ol>
@@ -511,7 +512,6 @@ function renderStoryQuiz() {
     <div class="tile">
       <p class="badge">שאלה</p>
       <p>${q.q}</p>
-      <button class="secondary" data-speak-story="true">הקשבה לסיפור</button>
       <div class="inline-options">
         <button class="secondary" data-answer="true">כן</button>
         <button class="secondary" data-answer="false">לא</button>
