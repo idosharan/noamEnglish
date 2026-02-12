@@ -34,6 +34,20 @@ const vocabulary = [
   { en: 'ten', he: '10', img: 'ten.png', audio: 'ten.mp3', example: 'I have ten eggs.' },
   { en: 'in', he: 'בתוך', img: 'in.png', audio: 'in.mp3', example: 'The cat is in the box.' },
   { en: 'on', he: 'על', img: 'on.png', audio: 'on.mp3', example: 'The hat is on the bed.' },
+  { en: 'iguana', he: 'איגואנה', img: 'iguana.png', audio: 'iguana.mp3', example: 'The iguana is on the mat.' },
+  { en: 'play', he: 'לשחק', img: 'play.png', audio: 'play.mp3', example: 'We play at home.' },
+  { en: 'pupil', he: 'תלמיד', img: 'pupil.png', audio: 'pupil.mp3', example: 'The pupil is happy.' },
+  { en: 'hand', he: 'יד', img: 'hand.png', audio: 'hand.mp3', example: 'My hand is on the bag.' },
+  { en: 'home', he: 'בית', img: 'home.png', audio: 'home.mp3', example: 'Dad is at home.' },
+  { en: 'happy', he: 'שמח', img: 'happy.png', audio: 'happy.mp3', example: 'She is happy at home.' },
+  { en: 'sun', he: 'שמש', img: 'sun.png', audio: 'sun.mp3', example: 'The sun is big.' },
+  { en: 'sing', he: 'לשיר', img: 'sing.png', audio: 'sing.mp3', example: 'I like to sing.' },
+  { en: 'melon', he: 'מלון', img: 'melon.png', audio: 'melon.mp3', example: 'The melon is in the box.' },
+  { en: 'mouth', he: 'פה', img: 'mouth.png', audio: 'mouth.mp3', example: 'The mouth is open.' },
+  { en: 'mouse', he: 'עכבר', img: 'mouse.png', audio: 'mouse.mp3', example: 'The mouse is in the box.' },
+  { en: 'cow', he: 'פרה', img: 'cow.png', audio: 'cow.mp3', example: 'The cow is on the mat.' },
+  { en: 'carrot', he: 'גזר', img: 'carrot.png', audio: 'carrot.mp3', example: 'The carrot is in the bag.' },
+  { en: 'computer', he: 'מחשב', img: 'computer.png', audio: 'computer.mp3', example: 'The computer is on the desk.' },
 ];
 
 const vowelWords = [
@@ -69,6 +83,19 @@ const vowelWords = [
   { masked: 't_n', answer: 'e', full: 'ten', he: '10', options: ['a','e','i','o'] },
   { masked: '_n', answer: 'i', full: 'in', he: 'בתוך', options: ['a','e','i','o'] },
   { masked: '_n', answer: 'o', full: 'on', he: 'על', options: ['a','e','i','o'] },
+  { masked: 'iguan_', answer: 'a', full: 'iguana', he: 'איגואנה', options: ['a','e','i','o'] },
+  { masked: 'pl_y', answer: 'a', full: 'play', he: 'לשחק', options: ['a','e','i','o'] },
+  { masked: 'pup_l', answer: 'i', full: 'pupil', he: 'תלמיד', options: ['a','e','i','o'] },
+  { masked: 'h_nd', answer: 'a', full: 'hand', he: 'יד', options: ['a','e','i','o'] },
+  { masked: 'h_me', answer: 'o', full: 'home', he: 'בית', options: ['a','e','i','o'] },
+  { masked: 'h_ppy', answer: 'a', full: 'happy', he: 'שמח', options: ['a','e','i','o'] },
+  { masked: 's_ng', answer: 'i', full: 'sing', he: 'לשיר', options: ['a','e','i','o'] },
+  { masked: 'm_lon', answer: 'e', full: 'melon', he: 'מלון', options: ['a','e','i','o'] },
+  { masked: 'm_uth', answer: 'o', full: 'mouth', he: 'פה', options: ['a','e','i','o'] },
+  { masked: 'm_use', answer: 'o', full: 'mouse', he: 'עכבר', options: ['a','e','i','o'] },
+  { masked: 'c_w', answer: 'o', full: 'cow', he: 'פרה', options: ['a','e','i','o'] },
+  { masked: 'c_rrot', answer: 'a', full: 'carrot', he: 'גזר', options: ['a','e','i','o'] },
+  { masked: 'c_mputer', answer: 'o', full: 'computer', he: 'מחשב', options: ['a','e','i','o'] },
 ];
 
 const sentencePool = [
@@ -91,6 +118,12 @@ const sentencePool = [
   { en: 'I have ten eggs.', he: 'יש לי עשר ביצים', distractors: ['יש לי שתי ביצים', 'אין לי ביצים'] },
   { en: 'The test is bad.', he: 'המבחן רע', distractors: ['המבחן טוב', 'אין מבחן'] },
   { en: 'The hen and the pig are on the bed.', he: 'התרנגול והחזיר על המיטה', distractors: ['התרנגול בתוך הקופסה', 'החזיר מתחת למיטה'] },
+  { en: 'The iguana is on the mat.', he: 'האיגואנה על השטיח', distractors: ['האיגואנה בתוך הקופסה', 'האיגואנה על המיטה'] },
+  { en: 'The pupil is happy at home.', he: 'התלמיד שמח בבית', distractors: ['התלמיד עצוב בבית', 'התלמיד שמח בבית הספר'] },
+  { en: 'The computer is on the desk.', he: 'המחשב על השולחן', distractors: ['המחשב בתוך התיק', 'המחשב על המיטה'] },
+  { en: 'The cow is on the mat.', he: 'הפרה על השטיח', distractors: ['הפרה בתוך הקופסה', 'הפרה מתחת למיטה'] },
+  { en: 'The mouse is in the box.', he: 'העכבר בתוך הקופסה', distractors: ['העכבר על השטיח', 'העכבר על המיטה'] },
+  { en: 'The carrot is in the bag.', he: 'הגזר בתוך התיק', distractors: ['הגזר על השולחן', 'הגזר על המיטה'] },
 ];
 
 const stories = [
