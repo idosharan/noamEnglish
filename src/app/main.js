@@ -473,6 +473,7 @@ function renderSentenceTranslate(options = {}) {
     <div class="tile">
       <p class="badge">משפט באנגלית</p>
       <div class="en-text"><strong>${target.en}</strong></div>
+      <button class="secondary" data-speak="${encodeURIComponent(target.en)}">הקשבה למשפט</button>
       <div class="exercise-grid">
         ${choices
           .map((c) => `<button class="secondary" data-choice="${c}">${c}</button>`)
@@ -488,6 +489,11 @@ function renderSentenceTranslate(options = {}) {
       speakSentence(target.en);
     });
   });
+
+  const speakBtn = dom.exerciseContainer.querySelector('button[data-speak]');
+  if (speakBtn) {
+    speakBtn.addEventListener('click', () => speakSentence(target.en));
+  }
 }
 
 function renderStoryQuiz() {
@@ -505,6 +511,7 @@ function renderStoryQuiz() {
     <div class="tile">
       <p class="badge">שאלה</p>
       <p>${q.q}</p>
+      <button class="secondary" data-speak-story="true">הקשבה לסיפור</button>
       <div class="inline-options">
         <button class="secondary" data-answer="true">כן</button>
         <button class="secondary" data-answer="false">לא</button>
@@ -520,6 +527,11 @@ function renderStoryQuiz() {
       speakSentence(story.title);
     });
   });
+
+  const speakStoryBtn = dom.exerciseContainer.querySelector('button[data-speak-story]');
+  if (speakStoryBtn) {
+    speakStoryBtn.addEventListener('click', () => speakSentence(story.lines.join(' ')));
+  }
 }
 
 function handleAnswer(kind, correct, message) {
