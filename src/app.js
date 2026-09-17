@@ -8,19 +8,28 @@ import { renderPlay } from './screens/play.js';
 import { renderResults } from './screens/results.js';
 import { renderProfile } from './screens/profile.js';
 
-export const installState = { canInstall: false, prompt: null };
+export const installState = {
+  get prompt() { return window.__installPrompt || null; },
+  get canInstall() { return !!window.__installPrompt; },
+};
 
 export function isStandalone() {
   return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 }
 
+// Returns 'accepted' | 'dismissed' | 'unavailable'
 export async function promptInstall() {
-  if (!installState.prompt) return;
-  installState.prompt.prompt();
-  await installState.prompt.userChoice.catch(() => {});
-  installState.prompt = null;
-  installState.canInstall = false;
-  document.querySelectorAll('.install-banner').forEach((b) => b.remove());
+  const ev = window.__installPrompt;
+  if (!ev) return 'unavailable';
+  window.__installPrompt = null;
+  try {
+    ev.prompt();
+    const { outcome } = await ev.userChoice;
+    if (outcome === 'accepted') document.querySelectorAll('.install-banner').forEach((b) => b.remove());
+    return outcome;
+  } catch {
+    return 'unavailable';
+  }
 }
 
 export function applyTheme(theme) {
@@ -70,10 +79,7 @@ function boot() {
   updateNav(nav);
 
   document.addEventListener('pointerdown', unlockAudio, { once: true });
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    installState.prompt = e;
-    installState.canInstall = true;
+  window.addEventListener('es:installable', () => {
     if (currentPath() === '/studio') renderStudio(root);
   });
   window.addEventListener('appinstalled', () => {
