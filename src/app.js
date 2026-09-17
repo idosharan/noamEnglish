@@ -20,7 +20,7 @@ export async function promptInstall() {
   await installState.prompt.userChoice.catch(() => {});
   installState.prompt = null;
   installState.canInstall = false;
-  document.querySelectorAll('.install-cta').forEach((b) => b.remove());
+  document.querySelectorAll('.install-banner').forEach((b) => b.remove());
 }
 
 export function applyTheme(theme) {
@@ -76,7 +76,10 @@ function boot() {
     installState.canInstall = true;
     if (currentPath() === '/studio') renderStudio(root);
   });
-  window.addEventListener('appinstalled', () => toast('המשחק הותקן! 🎉'));
+  window.addEventListener('appinstalled', () => {
+    document.querySelectorAll('.install-banner, .sheet-backdrop').forEach((b) => b.remove());
+    toast('המשחק הותקן! חפשו את 🎬 במסך הבית 🎉');
+  });
 
   registerServiceWorker();
   start();

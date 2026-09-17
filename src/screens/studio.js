@@ -4,7 +4,7 @@ import { navigate } from '../core/router.js';
 import { MODES, LEVEL_LABELS } from '../exercises/index.js';
 import { levelProgress, maxDifficultyFor, MILESTONES } from '../game/xp.js';
 import { avatarById } from '../data/avatars.js';
-import { installState, promptInstall } from '../app.js';
+import { installBanner, shouldShowInstall } from './install.js';
 
 export function renderStudio(root) {
   const state = store.get();
@@ -35,6 +35,8 @@ export function renderStudio(root) {
         nextMilestone ? el('small.muted', {}, `${nextMilestone.icon} עוד ${formatCount(nextMilestone.subs - state.subs)} סאבים ל-${nextMilestone.label}`) : null,
       ),
 
+      shouldShowInstall(state) ? installBanner() : null,
+
       // boss CTA
       el('button.boss-cta', { type: 'button', onclick: () => navigate(`/play/boss?level=${maxLevel}`) },
         el('span.boss-cta-emoji', {}, '👾'),
@@ -54,8 +56,6 @@ export function renderStudio(root) {
       // modes
       el('div.section-head', {}, el('h2', {}, '🎮 מצבי משחק'), el('small.muted', {}, `רמה מקסימלית: ${LEVEL_LABELS[maxLevel]}`)),
       el('div.mode-grid', {}, ...MODES.filter((m) => m.id !== 'boss').map((m) => modeCard(m, state, maxLevel))),
-
-      installState.canInstall ? el('button.install-cta', { type: 'button', onclick: promptInstall }, '📲 התקן את המשחק בטלפון') : null,
     ),
   );
 }

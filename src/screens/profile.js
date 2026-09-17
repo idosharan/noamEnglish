@@ -6,13 +6,13 @@ import { burst } from '../core/confetti.js';
 import { MODES } from '../exercises/index.js';
 import { BADGES } from '../game/badges.js';
 import { AVATARS, avatarById } from '../data/avatars.js';
-import { applyTheme, installState, promptInstall, isStandalone } from '../app.js';
+import { applyTheme } from '../app.js';
+import { installButton } from './install.js';
 
 export function renderProfile(root) {
   const state = store.get();
   const avatar = avatarById(state.profile.avatar);
   const owned = new Set(state.badges);
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
   root.innerHTML = '';
   root.append(
@@ -75,11 +75,7 @@ export function renderProfile(root) {
       el('div.settings', {},
         toggleRow('🔊 צלילים ודיבור', !state.settings.muted, (on) => { setMuted(!on); store.update((s) => ({ ...s, settings: { ...s.settings, muted: !on } })); }),
         toggleRow('🌙 מצב כהה', state.settings.theme !== 'light', (on) => { const theme = on ? 'dark' : 'light'; applyTheme(theme); store.update((s) => ({ ...s, settings: { ...s.settings, theme } })); }),
-        !isStandalone() ? el('div.install-box', {},
-          installState.canInstall
-            ? el('button.primary', { type: 'button', onclick: promptInstall }, '📲 התקן את המשחק בטלפון')
-            : el('p.muted', {}, isIOS ? 'להתקנה באייפון: לחצו על כפתור "שיתוף" ואז "הוסף למסך הבית".' : 'להתקנה: בתפריט הדפדפן בחרו "התקן אפליקציה" / "הוסף למסך הבית".'),
-        ) : el('p.muted', {}, '✅ המשחק מותקן במכשיר'),
+        el('div.install-box', {}, installButton()),
         el('button.danger.small', { type: 'button', onclick: () => {
           if (confirm('לאפס את כל ההתקדמות? אי אפשר לבטל.')) { store.reset(); navigate('/onboarding', { replace: true }); }
         } }, '🗑️ איפוס התקדמות'),
