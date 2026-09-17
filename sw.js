@@ -1,5 +1,5 @@
 /* English Studio service worker — app-shell precache + runtime cache for images */
-const CACHE_VERSION = 'v2.0.0';
+const CACHE_VERSION = 'v2.1.0';
 const SHELL_CACHE = `es-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `es-runtime-${CACHE_VERSION}`;
 
@@ -20,7 +20,7 @@ const SHELL = [
   './src/exercises/letters.js', './src/exercises/vocabulary.js', './src/exercises/vowels.js', './src/exercises/sentences.js',
   './src/exercises/story.js', './src/exercises/spelling.js', './src/exercises/listening.js', './src/exercises/builder.js',
   './src/exercises/memory.js', './src/exercises/boss.js',
-  './src/screens/onboarding.js', './src/screens/studio.js', './src/screens/play.js', './src/screens/results.js', './src/screens/profile.js',
+  './src/screens/onboarding.js', './src/screens/studio.js', './src/screens/play.js', './src/screens/results.js', './src/screens/profile.js', './src/screens/install.js',
 ];
 
 self.addEventListener('install', (event) => {
