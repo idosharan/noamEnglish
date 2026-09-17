@@ -458,6 +458,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .sheet-hero h2 { margin: 0; font-size: 22px; }
 .sheet-icon { font-size: 40px; }
 .center { text-align: center; }
+.small-text { font-size: 14px; }
+.sheet-warn { display: flex; gap: 8px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-sm); background: rgba(250, 204, 21, 0.14); border: 1px solid rgba(250, 204, 21, 0.45); color: var(--text); font-size: 15px; line-height: 1.45; }
+.native-area { display: grid; gap: 8px; }
+.native-area:empty { display: none; }
 .sheet-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .sheet-steps li { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border); font-size: 16px; line-height: 1.4; }
 .step-ico { font-size: 24px; flex: 0 0 auto; }
