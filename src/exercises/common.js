@@ -1,13 +1,24 @@
 import { el, escapeHtml, shuffle, pickMany, pick } from '../core/utils.js';
-import { mediaHtml } from '../data/words.js';
+import { mediaHtml, weighted } from '../data/words.js';
 
-// Picks `count` items from pool avoiding `used` ids where possible, marks the pick as used
+// Picks an item from pool avoiding `used` ids where possible, marks the pick as used.
+// Priority words are weighted higher.
 export function pickFresh(pool, used, key = (w) => w.en) {
   const fresh = pool.filter((w) => !used.has(key(w)));
   const source = fresh.length ? fresh : (used.clear(), pool);
-  const item = pick(source);
+  const item = pick(weighted(source));
   used.add(key(item));
   return item;
+}
+
+// Like pickMany but priority words are more likely to be included
+export function pickManyWeighted(pool, count) {
+  const out = [];
+  for (const w of shuffle(weighted(pool))) {
+    if (out.length >= count) break;
+    if (!out.includes(w)) out.push(w);
+  }
+  return out;
 }
 
 export function distractorsFor(target, pool, count, { sameCategory = false } = {}) {

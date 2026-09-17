@@ -1,13 +1,13 @@
-import { el, shuffle, pickMany, escapeHtml } from '../core/utils.js';
+import { el, shuffle, escapeHtml } from '../core/utils.js';
 import { PICTURE_WORDS, byLevel, mediaHtml } from '../data/words.js';
-import { prompt } from './common.js';
+import { prompt, pickManyWeighted } from './common.js';
 
 export default {
   id: 'memory', title: 'משחק זיכרון', desc: 'התאם/י מילה לתמונה', icon: '🧠', kind: 'single',
   create(level, api) {
     const pairs = level === 1 ? 4 : 6;
     const timeLimit = level >= 3 ? 90 : 0;
-    const words = pickMany(byLevel(PICTURE_WORDS, level), pairs);
+    const words = pickManyWeighted(byLevel(PICTURE_WORDS, level), pairs);
     return {
       next() {
         return {
