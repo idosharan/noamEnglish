@@ -4,45 +4,47 @@ const L = (en, he, media, example, category, level = 1) => ({
   en, he, example, category, level,
   ...(media.endsWith('.png') ? { img: media } : { emoji: media }),
 });
+// P = priority word (from the school textbook "Get Ready" unit) — picked ~3x more often
+const P = (...args) => ({ ...L(...args), priority: true });
 
 export const WORDS = [
   // ---- original test words (PNG) ----
-  L('dog', 'כלב', 'dog.png', 'The dog is on the mat.', 'animals'),
-  L('cat', 'חתול', 'cat.png', 'The cat is in the box.', 'animals'),
+  P('dog', 'כלב', 'dog.png', 'The dog is on the mat.', 'animals'),
+  P('cat', 'חתול', 'cat.png', 'The cat is in the box.', 'animals'),
   L('pig', 'חזיר', 'pig.png', 'The pig is big.', 'animals'),
-  L('hen', 'תרנגולת', 'hen.png', 'The hen is on the mat.', 'animals'),
-  L('elephant', 'פיל', 'elephant.png', 'The elephant has a big hat.', 'animals', 2),
-  L('hat', 'כובע', 'hat.png', 'The hat is on the bed.', 'things'),
-  L('bag', 'תיק', 'bag.png', 'I have a big bag.', 'school'),
-  L('box', 'קופסה', 'box.png', 'The cat is in the box.', 'things'),
-  L('bed', 'מיטה', 'bed.png', 'The dog is on the bed.', 'home'),
-  L('egg', 'ביצה', 'egg.png', 'The egg is on the mat.', 'food'),
-  L('mat', 'שטיח קטן', 'mat.png', 'The hen is on the mat.', 'home'),
+  P('hen', 'תרנגולת', 'hen.png', 'The hen is on the mat.', 'animals'),
+  P('elephant', 'פיל', 'elephant.png', 'The elephant has a big hat.', 'animals'),
+  P('hat', 'כובע', 'hat.png', 'The hat is on the bed.', 'things'),
+  P('bag', 'תיק', 'bag.png', 'I have a big bag.', 'school'),
+  P('box', 'קופסה', 'box.png', 'The cat is in the box.', 'things'),
+  P('bed', 'מיטה', 'bed.png', 'The dog is on the bed.', 'home'),
+  P('egg', 'ביצה', 'egg.png', 'The egg is on the mat.', 'food'),
+  P('mat', 'שטיח קטן', 'mat.png', 'The hen is on the mat.', 'home'),
   L('igloo', 'איגלו', 'igloo.png', 'The igloo is in the snow.', 'things', 2),
   L('telephone', 'טלפון', 'telephone.png', 'The telephone is in the bag.', 'things', 2),
-  L('pen', 'עט', 'pen.png', 'The pen is on the box.', 'school'),
-  L('man', 'איש', 'man.png', 'The man has a hat.', 'people'),
-  L('dad', 'אבא', 'dad.png', 'Dad has a big bag.', 'family'),
+  P('pen', 'עט', 'pen.png', 'The pen is on the box.', 'school'),
+  P('man', 'איש', 'man.png', 'The man has a hat.', 'people'),
+  P('dad', 'אבא', 'dad.png', 'Dad has a big bag.', 'family'),
   L('test', 'מבחן', 'test.png', 'The test is today.', 'school'),
   L('picture', 'תמונה', 'picture.png', 'The picture is on the wall.', 'things', 2),
   L('sofa', 'ספה', 'sofa.png', 'The sofa is big.', 'home'),
   L('like', 'אוהב', 'like.png', 'I like the dog.', 'verbs'),
   L('she', 'היא', 'she.png', 'She has a big pen.', 'words'),
   L('he', 'הוא', 'he.png', 'He is in the box.', 'words'),
-  L('sad', 'עצוב', 'sad.png', 'The pig is sad.', 'feelings'),
-  L('big', 'גדול', 'big.png', 'The elephant is big.', 'adjectives'),
-  L('bad', 'רע', 'bad.png', 'The test was bad.', 'adjectives'),
+  P('sad', 'עצוב', 'sad.png', 'The pig is sad.', 'feelings'),
+  P('big', 'גדול', 'big.png', 'The elephant is big.', 'adjectives'),
+  P('bad', 'רע', 'bad.png', 'The test was bad.', 'adjectives'),
   L('and', 'ו...', 'and.png', 'Dad and mom have a cat.', 'words'),
   L('the', 'ה...', 'the.png', 'The cat is on the sofa.', 'words'),
   L('has', 'יש לו/לה', 'has.png', 'She has a pen.', 'words'),
   L('I have', 'יש לי', 'ihave.png', 'I have a box.', 'words'),
-  L('ten', 'עשר', 'ten.png', 'I have ten eggs.', 'numbers'),
-  L('in', 'בתוך', 'in.png', 'The cat is in the box.', 'words'),
+  P('ten', 'עשר', 'ten.png', 'I have ten eggs.', 'numbers'),
+  P('in', 'בתוך', 'in.png', 'The cat is in the box.', 'words'),
   L('on', 'על', 'on.png', 'The hat is on the bed.', 'words'),
   L('iguana', 'איגואנה', 'Iguana.png', 'The iguana is on the mat.', 'animals', 2),
   L('play', 'לשחק', 'play.png', 'We play at home.', 'verbs'),
   L('pupil', 'תלמיד', 'pupil.png', 'The pupil is happy.', 'school', 2),
-  L('hand', 'יד', 'hand.png', 'My hand is on the bag.', 'body'),
+  P('hand', 'יד', 'hand.png', 'My hand is on the bag.', 'body'),
   L('home', 'בית', 'home.png', 'Dad is at home.', 'home'),
   L('happy', 'שמח', 'happy.png', 'She is happy at home.', 'feelings'),
   L('sun', 'שמש', 'sun.png', 'The sun is big.', 'nature'),
@@ -55,11 +57,11 @@ export const WORDS = [
   L('computer', 'מחשב', 'computer.png', 'The computer is on the desk.', 'things', 2),
 
   // ---- colors ----
-  L('red', 'אדום', '🔴', 'The apple is red.', 'colors'),
+  P('red', 'אדום', '🔴', 'The apple is red.', 'colors'),
   L('blue', 'כחול', '🔵', 'The sky is blue.', 'colors'),
   L('green', 'ירוק', '🟢', 'The frog is green.', 'colors'),
   L('yellow', 'צהוב', '🟡', 'The sun is yellow.', 'colors', 2),
-  L('black', 'שחור', '⚫', 'The cat is black.', 'colors'),
+  P('black', 'שחור', '⚫', 'The cat is black.', 'colors'),
   L('white', 'לבן', '⚪', 'The snow is white.', 'colors'),
   L('orange', 'כתום', '🟠', 'I like orange juice.', 'colors', 2),
   L('purple', 'סגול', '🟣', 'The grape is purple.', 'colors', 2),
@@ -72,14 +74,14 @@ export const WORDS = [
   L('three', 'שלוש', '3️⃣', 'Three eggs are in the box.', 'numbers', 2),
   L('four', 'ארבע', '4️⃣', 'The dog has four legs.', 'numbers'),
   L('five', 'חמש', '5️⃣', 'I have five pens.', 'numbers'),
-  L('six', 'שש', '6️⃣', 'Six hens are on the mat.', 'numbers'),
+  P('six', 'שש', '6️⃣', 'Six hens are on the mat.', 'numbers'),
   L('seven', 'שבע', '7️⃣', 'Seven days in a week.', 'numbers', 2),
   L('eight', 'שמונה', '8️⃣', 'The spider has eight legs.', 'numbers', 2),
-  L('nine', 'תשע', '9️⃣', 'Nine players are in the game.', 'numbers'),
+  P('nine', 'תשע', '9️⃣', 'Nine players are in the game.', 'numbers'),
   L('twenty', 'עשרים', '🔢', 'I have twenty coins.', 'numbers', 3),
 
   // ---- family & people ----
-  L('mom', 'אמא', '👩', 'Mom has a red bag.', 'family'),
+  P('mom', 'אמא', '👩', 'Mom has a red bag.', 'family'),
   L('brother', 'אח', '👦', 'My brother plays games.', 'family', 2),
   L('sister', 'אחות', '👧', 'My sister likes to sing.', 'family', 2),
   L('baby', 'תינוק', '👶', 'The baby is happy.', 'family'),
@@ -94,7 +96,7 @@ export const WORDS = [
   L('book', 'ספר', '📖', 'The book is on the desk.', 'school'),
   L('desk', 'שולחן כתיבה', '🪑', 'The computer is on the desk.', 'school'),
   L('pencil', 'עיפרון', '✏️', 'I have a yellow pencil.', 'school', 2),
-  L('school', 'בית ספר', '🏫', 'I go to school.', 'school', 2),
+  P('school', 'בית ספר', '🏫', 'I go to school.', 'school'),
   L('read', 'לקרוא', '📚', 'I read a book.', 'verbs'),
   L('write', 'לכתוב', '📝', 'I write with a pen.', 'verbs', 2),
   L('clock', 'שעון', '⏰', 'The clock is on the wall.', 'things', 2),
@@ -104,9 +106,9 @@ export const WORDS = [
 
   // ---- food ----
   L('apple', 'תפוח', '🍎', 'The apple is red.', 'food'),
-  L('banana', 'בננה', '🍌', 'The banana is yellow.', 'food', 2),
-  L('pizza', 'פיצה', '🍕', 'I like pizza!', 'food'),
-  L('milk', 'חלב', '🥛', 'The cat likes milk.', 'food'),
+  P('banana', 'בננה', '🍌', 'The banana is yellow.', 'food'),
+  P('pizza', 'פיצה', '🍕', 'I like pizza!', 'food'),
+  P('milk', 'חלב', '🥛', 'The cat likes milk.', 'food'),
   L('bread', 'לחם', '🍞', 'Mom has bread and eggs.', 'food', 2),
   L('water', 'מים', '💧', 'I drink water.', 'food', 2),
   L('cake', 'עוגה', '🎂', 'The cake is big.', 'food'),
@@ -115,14 +117,14 @@ export const WORDS = [
   L('eat', 'לאכול', '🍽️', 'I eat an apple.', 'verbs'),
 
   // ---- animals ----
-  L('fish', 'דג', '🐟', 'The fish is in the water.', 'animals'),
+  P('fish', 'דג', '🐟', 'The fish is in the water.', 'animals'),
   L('bird', 'ציפור', '🐦', 'The bird can sing.', 'animals'),
   L('frog', 'צפרדע', '🐸', 'The frog is green.', 'animals'),
   L('lion', 'אריה', '🦁', 'The lion is big.', 'animals'),
   L('monkey', 'קוף', '🐵', 'The monkey likes bananas.', 'animals', 2),
   L('rabbit', 'ארנב', '🐰', 'The rabbit eats a carrot.', 'animals', 2),
   L('horse', 'סוס', '🐴', 'The horse can run.', 'animals', 2),
-  L('duck', 'ברווז', '🦆', 'The duck is in the water.', 'animals'),
+  P('duck', 'ברווז', '🦆', 'The duck is in the water.', 'animals'),
   L('snake', 'נחש', '🐍', 'The snake is long.', 'animals', 2),
   L('bear', 'דוב', '🐻', 'The bear is brown.', 'animals'),
 
@@ -130,13 +132,13 @@ export const WORDS = [
   L('eye', 'עין', '👁️', 'I see with my eye.', 'body'),
   L('nose', 'אף', '👃', 'The elephant has a big nose.', 'body'),
   L('ear', 'אוזן', '👂', 'I hear with my ear.', 'body'),
-  L('leg', 'רגל', '🦵', 'The dog has four legs.', 'body'),
+  P('leg', 'רגל', '🦵', 'The dog has four legs.', 'body'),
   L('head', 'ראש', '🙂', 'The hat is on my head.', 'body', 2),
   L('hair', 'שיער', '💇', 'She has long hair.', 'body', 2),
 
   // ---- adjectives / feelings ----
   L('small', 'קטן', '🐜', 'The mouse is small.', 'adjectives'),
-  L('hot', 'חם', '🔥', 'The sun is hot.', 'adjectives'),
+  P('hot', 'חם', '🔥', 'The sun is hot.', 'adjectives'),
   L('cold', 'קר', '🧊', 'The igloo is cold.', 'adjectives'),
   L('fast', 'מהיר', '🏎️', 'The car is fast.', 'adjectives', 2),
   L('slow', 'איטי', '🐢', 'The turtle is slow.', 'adjectives', 2),
@@ -145,7 +147,7 @@ export const WORDS = [
   L('funny', 'מצחיק', '🤣', 'The video is funny.', 'feelings', 2),
 
   // ---- verbs / actions ----
-  L('run', 'לרוץ', '🏃', 'I run fast.', 'verbs'),
+  P('run', 'לרוץ', '🏃', 'I run fast.', 'verbs'),
   L('jump', 'לקפוץ', '🦘', 'The frog can jump.', 'verbs'),
   L('swim', 'לשחות', '🏊', 'The fish can swim.', 'verbs', 2),
   L('sleep', 'לישון', '🛌', 'The cat likes to sleep.', 'verbs', 2),
@@ -165,7 +167,7 @@ export const WORDS = [
   // ---- gaming / YouTube ----
   L('game', 'משחק', '🎮', 'I play a new game.', 'gaming'),
   L('level', 'רמה / שלב', '🆙', 'I am on level five.', 'gaming', 2),
-  L('win', 'לנצח', '🏆', 'I win the game!', 'gaming'),
+  P('win', 'לנצח', '🏆', 'I win the game!', 'gaming'),
   L('lose', 'להפסיד', '💀', 'I do not like to lose.', 'gaming', 2),
   L('player', 'שחקן', '🕹️', 'The player has ten coins.', 'gaming', 2),
   L('video', 'סרטון', '📹', 'I like the funny video.', 'gaming', 2),
@@ -179,13 +181,76 @@ export const WORDS = [
   L('gold', 'זהב', '✨', 'The gold button is big.', 'gaming', 2),
   L('speed', 'מהירות', '💨', 'The car has speed.', 'gaming', 2),
   L('power', 'כוח', '💪', 'The player has power.', 'gaming', 2),
-  L('robot', 'רובוט', '🤖', 'The robot can dance.', 'gaming'),
+  P('robot', 'רובוט', '🤖', 'The robot can dance.', 'gaming'),
   L('rocket', 'רקטה / טיל', '🚀', 'The rocket is fast.', 'gaming', 2),
   L('map', 'מפה', '🗺️', 'The map is in the game.', 'gaming'),
   L('team', 'קבוצה', '👥', 'My team wins the game.', 'gaming', 2),
   L('start', 'להתחיל', '▶️', 'Press start to play.', 'gaming'),
-  L('stop', 'לעצור', '⏹️', 'Stop the video.', 'gaming'),
+  P('stop', 'לעצור', '⏹️', 'Stop the video.', 'gaming'),
+
+  // ---- textbook "Get Ready" (pages 9-11): first letters ----
+  P('kangaroo', 'קנגורו', '🦘', 'The kangaroo can jump.', 'animals'),
+  P('guitar', 'גיטרה', '🎸', 'I play the guitar.', 'things'),
+  P('lemon', 'לימון', '🍋', 'The lemon is yellow.', 'food'),
+  P('fruit', 'פרי', '🍇', 'I eat fruit.', 'food'),
+  P('jeep', "ג'יפ", '🚙', 'The jeep is green.', 'things'),
+  P('zebra', 'זברה', '🦓', 'The zebra is black and white.', 'animals'),
+  P('dinosaur', 'דינוזאור', '🦖', 'The dinosaur is big.', 'animals'),
+  P('hamburger', 'המבורגר', '🍔', 'I like a hamburger.', 'food'),
+  P('balloon', 'בלון', '🎈', 'The balloon is green.', 'things'),
+  P('skateboard', 'סקייטבורד', '🛹', 'The skateboard is red.', 'things'),
+  P('milkshake', 'מילקשייק', '🥤', 'The milkshake is pink.', 'food'),
+  P('tennis', 'טניס', '🎾', 'We play tennis.', 'things'),
+  P('yo-yo', 'יו-יו', '🪀', 'The yo-yo is green.', 'things'),
+  P('avocado', 'אבוקדו', '🥑', 'The avocado is green.', 'food'),
+  P('umbrella', 'מטרייה', '☂️', 'The umbrella is in the bag.', 'things'),
+  P('panda', 'פנדה', '🐼', 'The panda is black and white.', 'animals'),
+  P('gorilla', 'גורילה', '🦍', 'The gorilla is big.', 'animals'),
+  P('salad', 'סלט', '🥗', 'Mom has a salad.', 'food'),
+  P('bus', 'אוטובוס', '🚌', 'The bus is big.', 'things'),
+  P('ink', 'דיו', '🖋️', 'The ink is black.', 'school'),
+
+  // ---- textbook: short a ----
+  P('fat', 'שמן', '🍩', 'The cat is fat.', 'adjectives'),
+  P('mad', 'כועס', '😡', 'Dad is mad.', 'feelings'),
+  P('can', 'פחית', '🥫', 'The can is on the mat.', 'things'),
+  P('van', 'ואן / טנדר', '🚐', 'The van is red.', 'things'),
+  P('stand', 'לעמוד', '🧍', 'Stand up!', 'verbs'),
+  P('lamp', 'מנורה', '💡', 'The lamp is on the desk.', 'home'),
+
+  // ---- textbook: short e ----
+  P('jet', 'מטוס סילון', '✈️', 'The jet is fast.', 'things'),
+  P('send', 'לשלוח', '📤', 'I send a picture.', 'verbs'),
+  P('pet', 'חיית מחמד', '🐹', 'My pet is a cat.', 'animals'),
+  P('end', 'סוף', '🏁', 'The end of the game.', 'words'),
+
+  // ---- textbook: short i ----
+  P('sit', 'לשבת', '�', 'Sit on the chair.', 'verbs'),
+  P('is', 'הוא/היא (פועל)', '👉', 'The cat is big.', 'words'),
+  P('kid', 'ילד/ה', '🤸', 'The kid has a hat.', 'people'),
+
+  // ---- textbook: short o ----
+  P('song', 'שיר', '🎵', 'I like the song.', 'things'),
+  P('not', 'לא', '❌', 'The dog is not big.', 'words'),
+  P('hop', 'לנתר', '🐇', 'The rabbit can hop.', 'verbs'),
+  P('job', 'עבודה', '👷', 'Dad has a job.', 'words'),
+  P('fox', 'שועל', '🦊', 'The fox is in the box.', 'animals'),
+  P('long', 'ארוך', '📏', 'The snake is long.', 'adjectives'),
+
+  // ---- textbook: short u ----
+  P('up', 'למעלה', '⬆️', 'Stand up!', 'words'),
+  P('cup', 'כוס / ספל', '☕', 'The cup is hot.', 'home'),
+  P('fun', 'כיף', '🥳', 'The game is fun.', 'feelings'),
+  P('hug', 'חיבוק', '🤗', 'Mom has a hug for me.', 'verbs'),
+  P('rug', 'שטיח', '🟫', 'The dog is on the rug.', 'home'),
+  P('us', 'אותנו', '👥', 'Look at us!', 'words'),
+  P('luck', 'מזל', '🍀', 'Good luck!', 'words'),
+  P('under', 'מתחת', '⬇️', 'The cat is under the bed.', 'words'),
 ];
+
+// Priority (textbook) words are repeated so random picks favour them
+export const PRIORITY_WEIGHT = 3;
+export const weighted = (list) => list.flatMap((w) => (w.priority ? Array(PRIORITY_WEIGHT).fill(w) : [w]));
 
 export const VOWELS = ['a', 'e', 'i', 'o', 'u'];
 
