@@ -1,5 +1,5 @@
 /* English Studio service worker — app-shell precache + runtime cache for images */
-const CACHE_VERSION = 'v2.1.1';
+const CACHE_VERSION = 'v2.2.0';
 const SHELL_CACHE = `es-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `es-runtime-${CACHE_VERSION}`;
 
