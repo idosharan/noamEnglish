@@ -3,17 +3,19 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-	<title>English Studio – משחק אנגלית</title>
-	<meta name="description" content="משחק אנגלית לילדים בכיתה ד': סאבים, בוסים, איות, האזנה וסיפורים – בעברית." />
-	<meta name="theme-color" content="#0b0f1e" />
+	<title>English Quest – מתכוננים למבחן באנגלית</title>
+	<meta name="description" content="משחק אנגלית לכיתה ד': אותיות וצלילים, ch/sh/th, מספרים 1-12, אוצר מילים, קריאה ומבחן ניסיון." />
+	<meta name="theme-color" content="#0f1226" />
 	<meta name="color-scheme" content="dark light" />
 	<meta name="mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-	<meta name="apple-mobile-web-app-title" content="English Studio" />
+	<meta name="apple-mobile-web-app-title" content="English Quest" />
 	<link rel="manifest" href="./manifest.webmanifest" />
 	<link rel="icon" href="./assets/icons/icon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+	<link rel="preload" href="./assets/fonts/rubik-hebrew.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="./assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
 	<link rel="stylesheet" href="./assets/styles.css" />
 	<script>
 		// Chrome may fire this before the module loads — keep it for app.js
@@ -25,13 +27,14 @@
 	<canvas id="confetti" aria-hidden="true"></canvas>
 
 	<main id="app" class="app" tabindex="-1">
-		<div class="loading" aria-live="polite">טוען… 🎮</div>
+		<div class="loading" aria-live="polite">טוען…</div>
 	</main>
 
 	<nav id="bottom-nav" class="bottom-nav" aria-label="ניווט ראשי" hidden>
-		<a href="#/studio" data-route="/studio"><span class="ico">🏠</span><span>סטודיו</span></a>
+		<a href="#/studio" data-route="/studio"><span class="ico">🗺️</span><span>מפה</span></a>
+		<a href="#/play/exam?level=1" data-route="/play/exam"><span class="ico">📝</span><span>מבחן</span></a>
 		<a href="#/play/boss?level=1" data-route="/play/boss" class="boss-link"><span class="ico">👾</span><span>בוס</span></a>
-		<a href="#/profile" data-route="/profile"><span class="ico">🧑‍🎤</span><span>פרופיל</span></a>
+		<a href="#/profile" data-route="/profile"><span class="ico">😎</span><span>פרופיל</span></a>
 	</nav>
 
 	<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>

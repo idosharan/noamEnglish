@@ -1,7 +1,7 @@
 {
-  "name": "English Studio – משחק אנגלית",
-  "short_name": "English Studio",
-  "description": "משחק אנגלית לילדים: סאבים, בוסים, איות, האזנה וסיפורים",
+  "name": "English Quest – מתכוננים למבחן באנגלית",
+  "short_name": "English Quest",
+  "description": "משחק אנגלית לכיתה ד': אותיות וצלילים, ch/sh/th, מספרים 1-12, אוצר מילים, קריאה ומבחן ניסיון",
   "lang": "he",
   "dir": "rtl",
   "start_url": "./",
@@ -9,8 +9,8 @@
   "id": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b0f1e",
-  "theme_color": "#0b0f1e",
+  "background_color": "#0f1226",
+  "theme_color": "#0f1226",
   "categories": ["education", "games", "kids"],
   "icons": [
     { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
@@ -19,7 +19,8 @@
     { "src": "./assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "shortcuts": [
-    { "name": "Boss Battle", "short_name": "בוס", "url": "./#/play/boss?level=1", "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "איות", "short_name": "איות", "url": "./#/play/spelling?level=1", "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "מבחן ניסיון", "short_name": "מבחן", "url": "./#/play/exam?level=1", "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "ch sh th", "short_name": "צלילים", "url": "./#/play/digraph?level=1", "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Boss Battle", "short_name": "בוס", "url": "./#/play/boss?level=1", "icons": [{ "src": "./assets/icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

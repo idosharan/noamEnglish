@@ -1,5 +1,5 @@
 /* English Studio service worker — app-shell precache + runtime cache for images */
-const CACHE_VERSION = 'v2.2.0';
+const CACHE_VERSION = 'v3.0.0';
 const SHELL_CACHE = `es-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `es-runtime-${CACHE_VERSION}`;
 
@@ -8,6 +8,7 @@ const SHELL = [
   './index.html',
   './manifest.webmanifest',
   './assets/styles.css',
+  './assets/fonts/rubik-hebrew.woff2', './assets/fonts/rubik-latin.woff2', './assets/fonts/andika-400.woff2', './assets/fonts/andika-700.woff2',
   './assets/icons/icon.svg',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
@@ -15,12 +16,17 @@ const SHELL = [
   './src/app.js',
   './src/core/utils.js', './src/core/store.js', './src/core/audio.js', './src/core/router.js', './src/core/confetti.js',
   './src/game/xp.js', './src/game/quests.js', './src/game/badges.js', './src/game/round.js',
-  './src/data/words.js', './src/data/sentences.js', './src/data/stories.js', './src/data/avatars.js',
+  './src/data/words.js', './src/data/reading.js', './src/data/avatars.js',
   './src/exercises/index.js', './src/exercises/common.js',
-  './src/exercises/letters.js', './src/exercises/vocabulary.js', './src/exercises/vowels.js', './src/exercises/sentences.js',
-  './src/exercises/story.js', './src/exercises/spelling.js', './src/exercises/listening.js', './src/exercises/builder.js',
-  './src/exercises/memory.js', './src/exercises/boss.js',
-  './src/screens/onboarding.js', './src/screens/studio.js', './src/screens/play.js', './src/screens/results.js', './src/screens/profile.js', './src/screens/install.js',
+  './src/exercises/hearletter.js', './src/exercises/firstletter.js', './src/exercises/missing.js', './src/exercises/trace.js',
+  './src/exercises/digraph.js', './src/exercises/sort.js', './src/exercises/translate.js', './src/exercises/vocabulary.js',
+  './src/exercises/listening.js', './src/exercises/order.js', './src/exercises/spelling.js', './src/exercises/numbers.js',
+  './src/exercises/reading.js', './src/exercises/myname.js', './src/exercises/boss.js', './src/exercises/exam.js',
+  './src/screens/onboarding.js', './src/screens/studio.js', './src/screens/play.js', './src/screens/results.js',
+  './src/screens/profile.js', './src/screens/parent.js', './src/screens/install.js',
+  // word pictures, so every exercise works offline right after install
+  ...['sing', 'test', 'bed', 'bag', 'big', 'egg', 'cow', 'ihave', 'has', 'dog', 'cat', 'sad', 'hat', 'man', 'dad', 'mat', 'hand',
+    'pen', 'hen', 'elephant', 'pig', 'igloo', 'Iguana', 'box', 'sun', 'mouse'].map((n) => `./assets/img/${n}.png`),
 ];
 
 self.addEventListener('install', (event) => {
