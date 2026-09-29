@@ -37,7 +37,7 @@ function png(width, height, rgba) {
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const mix = (c1, c2, t) => c1.map((v, i) => lerp(v, c2[i], t));
-const PURPLE = [124, 92, 255], CYAN = [34, 211, 238], PINK = [255, 77, 141], WHITE = [255, 255, 255], YELLOW = [250, 204, 21], NAVY = [11, 15, 30];
+const PURPLE = [142, 224, 63], CYAN = [60, 200, 255], PINK = [23, 137, 189], WHITE = [255, 255, 255], YELLOW = [255, 200, 61], NAVY = [15, 18, 38], INK = [27, 29, 58];
 
 function insideRoundedRect(x, y, s, r) {
   const cx = Math.min(Math.max(x, r), s - r), cy = Math.min(Math.max(y, r), s - r);
@@ -80,7 +80,7 @@ function render(size, { maskable = false }) {
         if (dist <= R) {
           color = WHITE;
           const tri = [[c - R * 0.32, c - R * 0.5], [c - R * 0.32, c + R * 0.5], [c + R * 0.5, c]];
-          if (insideTriangle(px, py, ...tri)) color = mix(PURPLE, PINK, 0.4);
+          if (insideTriangle(px, py, ...tri)) color = INK;
         }
         if (insideStar(px, py, size * 0.78 - pad * 0.6, size * 0.24 + pad * 0.6, size * 0.11, size * 0.05)) color = YELLOW;
         acc[0] += color[0]; acc[1] += color[1]; acc[2] += color[2]; acc[3] += 255;
@@ -101,11 +101,11 @@ writeFileSync(new URL('icon-512.png', OUT), render(512, {}));
 writeFileSync(new URL('icon-maskable-512.png', OUT), render(512, { maskable: true }));
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ee03f"/><stop offset="1" stop-color="#3cc8ff"/></linearGradient></defs>
 <rect width="100" height="100" rx="22" fill="url(#g)"/>
 <circle cx="50" cy="50" r="30" fill="#fff"/>
-<path d="M40 35 L40 65 L65 50 Z" fill="#a04ee0"/>
-<path d="M78 14 l3.2 6.6 7.2 1-5.2 5.1 1.2 7.2-6.4-3.4-6.4 3.4 1.2-7.2-5.2-5.1 7.2-1z" fill="#facc15"/>
+<path d="M40 35 L40 65 L65 50 Z" fill="#1b1d3a"/>
+<path d="M78 14 l3.2 6.6 7.2 1-5.2 5.1 1.2 7.2-6.4-3.4-6.4 3.4 1.2-7.2-5.2-5.1 7.2-1z" fill="#ffc83d"/>
 </svg>`;
 writeFileSync(new URL('icon.svg', OUT), svg);
 console.log('icons written to assets/icons/');
