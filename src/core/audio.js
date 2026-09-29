@@ -25,18 +25,52 @@ function pickVoice() {
 }
 if ('speechSynthesis' in window) speechSynthesis.addEventListener?.('voiceschanged', () => { voice = null; pickVoice(); });
 
-export function speak(text, { rate = 0.9 } = {}) {
-  if (muted || !text || !('speechSynthesis' in window)) return;
+let seqToken = 0;
+function utter(text, rate) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'en-US';
   u.rate = rate;
   const v = pickVoice();
   if (v) u.voice = v;
+  return u;
+}
+
+export function speak(text, { rate = 0.9 } = {}) {
+  if (muted || !text || !('speechSynthesis' in window)) return;
+  seqToken++;
   speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  speechSynthesis.speak(utter(text, rate));
+}
+
+// Speaks items one after another with a pause between them (listen & number)
+export function speakList(texts, { rate = 0.85, gap = 700, onItem } = {}) {
+  if (muted || !texts.length || !('speechSynthesis' in window)) return;
+  const token = ++seqToken;
+  speechSynthesis.cancel();
+  let i = 0;
+  const next = () => {
+    if (token !== seqToken || i >= texts.length) return;
+    const idx = i++;
+    const u = utter(texts[idx], rate);
+    u.onstart = () => onItem?.(idx);
+    u.onend = () => setTimeout(next, gap);
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+
+// TTS reads a lone "A" as the article, so letters are spoken by their names
+const LETTER_NAMES = {
+  a: 'ay', b: 'bee', c: 'see', d: 'dee', e: 'ee', f: 'eff', g: 'gee', h: 'aitch', i: 'eye', j: 'jay', k: 'kay', l: 'ell', m: 'em',
+  n: 'en', o: 'oh', p: 'pee', q: 'cue', r: 'are', s: 'ess', t: 'tee', u: 'you', v: 'vee', w: 'double you', x: 'ex', y: 'why', z: 'zee',
+};
+export const letterName = (ch) => LETTER_NAMES[String(ch).toLowerCase()] || ch;
+export function speakLetter(ch, example) {
+  speak(example ? `${letterName(ch)}. ${letterName(ch)}, as in ${example}.` : letterName(ch), { rate: 0.8 });
 }
 
 export function stopSpeaking() {
+  seqToken++;
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
 

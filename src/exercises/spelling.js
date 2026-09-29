@@ -1,13 +1,14 @@
 import { el, shuffle } from '../core/utils.js';
-import { SPELLABLE, byLevel } from '../data/words.js';
+import { SPELLABLE, byLevel, hasPicture } from '../data/words.js';
 import { prompt, pickFresh, mediaCard, speakButton } from './common.js';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 export default {
-  id: 'spelling', title: 'איות', desc: 'הרכב/י את המילה מאותיות', icon: '✍️', kind: 'questions',
+  id: 'spelling', title: 'איות', desc: 'בנו את המילה מאותיות', icon: '✍️', kind: 'questions',
   create(level, api) {
-    const pool = byLevel(SPELLABLE, level);
+    const maxLen = level === 1 ? 4 : level === 2 ? 6 : 12;
+    const pool = byLevel(SPELLABLE, level).filter((w) => w.en.length <= maxLen);
     const used = new Set();
     return {
       next() {
@@ -15,8 +16,8 @@ export default {
         return {
           render(container) {
             container.append(
-              prompt(level >= 3 ? 'הקלד/י את המילה באנגלית' : 'הרכב/י את המילה מהאותיות'),
-              mediaCard(target, { hint: target.he, size: 'md' }),
+              prompt(level >= 3 ? 'הקלידו את המילה באנגלית' : 'בנו את המילה מהאותיות'),
+              mediaCard(target, { hint: hasPicture(target) ? target.he : '', size: 'md' }),
               speakButton(() => api.speak(target.en), 'השמע את המילה'),
             );
             if (level >= 3) renderTyping(container, target, api);
@@ -29,7 +30,7 @@ export default {
   },
 };
 
-function renderTiles(container, target, api, extra) {
+export function renderTiles(container, target, api, extra) {
   const letters = [...target.en];
   const extras = shuffle([...ALPHABET].filter((c) => !letters.includes(c))).slice(0, extra);
   const tiles = shuffle([...letters, ...extras]);
@@ -58,7 +59,7 @@ function renderTiles(container, target, api, extra) {
   });
   bank.append(...tileEls);
 
-  const undo = el('button.ghost.small', { type: 'button' }, '↩️ מחק אות');
+  const undo = el('button.ghost.small', { type: 'button' }, '↩ מחק אות');
   undo.addEventListener('click', () => {
     if (locked || !answer.length) return;
     answer.pop();
@@ -74,13 +75,13 @@ function renderTiles(container, target, api, extra) {
     slots.classList.add(ok ? 'is-correct' : 'is-wrong');
     if (!ok) slots.innerHTML = letters.map((ch) => `<span class="slot filled reveal">${ch}</span>`).join('');
     api.speak(target.en);
-    api.answer(ok, { text: ok ? `${target.en} — מושלם!` : `האיות הנכון: ${target.en}` });
+    api.answer(ok, { word: target.en, text: ok ? `${target.en} — מושלם!` : `האיות הנכון: ${target.en}` });
   }
 
   container.append(slots, bank, undo);
 }
 
-function renderTyping(container, target, api) {
+export function renderTyping(container, target, api) {
   const form = el('form.type-form', { autocomplete: 'off' });
   const input = el('input.type-input.en', {
     type: 'text', inputmode: 'latin', autocapitalize: 'off', autocorrect: 'off', spellcheck: false,
@@ -99,7 +100,7 @@ function renderTyping(container, target, api) {
     input.classList.add(ok ? 'is-correct' : 'is-wrong');
     if (!ok) input.value = target.en;
     api.speak(target.en);
-    api.answer(ok, { text: ok ? `${target.en} — מושלם!` : `האיות הנכון: ${target.en}` });
+    api.answer(ok, { word: target.en, text: ok ? `${target.en} — מושלם!` : `האיות הנכון: ${target.en}` });
   });
   container.append(form);
   setTimeout(() => input.focus(), 50);

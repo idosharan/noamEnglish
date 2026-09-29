@@ -10,14 +10,18 @@ export const BADGES = [
   { id: 'boss_5', icon: '🐉', title: 'צייד בוסים', desc: 'ניצחת 5 בוסים', test: (s) => (s.stats.boss?.wins || 0) >= 5 },
   { id: 'perfect_spelling', icon: '✍️', title: 'מאסטר איות', desc: '10/10 באיות', test: (s) => (s.stats.spelling?.perfect || 0) >= 1 },
   { id: 'perfect_listening', icon: '🎧', title: 'אוזן זהב', desc: '10/10 בהאזנה', test: (s) => (s.stats.listening?.perfect || 0) >= 1 },
-  { id: 'perfect_builder', icon: '🧱', title: 'בנאי משפטים', desc: '10/10 בבניית משפטים', test: (s) => (s.stats.builder?.perfect || 0) >= 1 },
-  { id: 'perfect_story', icon: '📖', title: 'קורא מקצועי', desc: '10/10 בסיפור', test: (s) => (s.stats.story?.perfect || 0) >= 1 },
-  { id: 'memory_fast', icon: '⚡', title: 'זיכרון בזק', desc: 'משחק זיכרון מתחת ל-60 שניות', test: (s) => (s.stats.memory?.bestTime || Infinity) < 60 },
+  { id: 'perfect_digraph', icon: '🔊', title: 'מלך הצלילים', desc: 'סבב מושלם ב-ch/sh/th', test: (s) => (s.stats.digraph?.perfect || 0) >= 1 },
+  { id: 'perfect_reading', icon: '📖', title: 'קורא מקצועי', desc: 'סבב מושלם בקריאה', test: (s) => (s.stats.reading?.perfect || 0) >= 1 },
+  { id: 'perfect_numbers', icon: '🔟', title: 'אלוף המספרים', desc: '10/10 במספרים', test: (s) => (s.stats.numbers?.perfect || 0) >= 1 },
+  { id: 'trace_pro', icon: '✏️', title: 'כתב יד מלכותי', desc: 'סבב מושלם בכתיבת אותיות', test: (s) => (s.stats.trace?.perfect || 0) >= 1 },
+  { id: 'my_name', icon: '📛', title: 'יודע לכתוב את השם', desc: 'סבב מושלם ב"השם שלי"', test: (s) => (s.stats.myname?.perfect || 0) >= 1 },
+  // exam has 20 questions — 18 correct is a 90
+  { id: 'exam_90', icon: '🎓', title: 'מוכן למבחן!', desc: 'ציון 90+ במבחן ניסיון', test: (s) => (s.stats.exam?.best || 0) >= 18 },
   { id: 'words_50', icon: '🔤', title: '50 מילים', desc: 'איית נכון 50 מילים', test: (s) => (s.stats.spelling?.correct || 0) >= 50 },
   { id: 'level_5', icon: '⭐', title: 'רמה 5', desc: 'הגעת לרמה 5', test: (s) => s.level >= 5 },
   { id: 'level_10', icon: '🌟', title: 'רמה 10', desc: 'הגעת לרמה 10', test: (s) => s.level >= 10 },
   { id: 'combo_6', icon: '🚀', title: 'קומבו x3', desc: '6 תשובות נכונות ברצף', test: (s) => (s.bestCombo || 0) >= 6 },
-  { id: 'all_modes', icon: '🎮', title: 'שחקן כל-יכול', desc: 'שיחקת בכל 10 המצבים', test: (s) => Object.values(s.stats).filter((m) => m.rounds > 0).length >= 10 },
+  { id: 'all_modes', icon: '🎮', title: 'שחקן כל-יכול', desc: 'שיחקת ב-12 מצבים שונים', test: (s) => Object.values(s.stats).filter((m) => m.rounds > 0).length >= 12 },
 ];
 
 function totalRounds(s) {

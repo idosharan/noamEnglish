@@ -27,7 +27,7 @@ export function installBanner({ onDismiss } = {}) {
   const card = el('section.install-banner', { 'aria-label': 'התקנת המשחק בטלפון' },
     el('div.ib-glow', { 'aria-hidden': 'true' }),
     el('div.ib-phone', { 'aria-hidden': 'true' },
-      el('div.ib-screen', {}, el('span.ib-app', {}, '🎬'), el('span.ib-spark.s1', {}, '✨'), el('span.ib-spark.s2', {}, '⭐'), el('span.ib-spark.s3', {}, '🔔')),
+      el('div.ib-screen', {}, el('span.ib-app', {}, '🗺️'), el('span.ib-spark.s1', {}, '✨'), el('span.ib-spark.s2', {}, '⭐'), el('span.ib-spark.s3', {}, '🔔')),
     ),
     el('div.ib-text', {},
       el('span.ib-kicker', {}, '🎮 שדרוג לערוץ'),
@@ -58,7 +58,7 @@ export function installButton() {
 async function install() {
   if (installState.canInstall) {
     const outcome = await promptInstall();
-    if (outcome === 'accepted') { toast('מתקין… חפשו את 🎬 במסך הבית 🎉'); return; }
+    if (outcome === 'accepted') { toast('מתקין… האייקון יופיע במסך הבית 🎉'); return; }
     if (outcome === 'dismissed') return;
   }
   openInstallSheet();
@@ -120,7 +120,7 @@ function instructions() {
       list: [
         ['1️⃣', isSafari ? 'למטה במסך לחצו על כפתור <b>שיתוף</b> <span class="kbd">⬆️</span>' : 'פתחו את הכתובת הזו ב-<b>Safari</b> (רק משם אפשר להתקין)'],
         ['2️⃣', 'גללו ובחרו <b>"הוסף למסך הבית"</b> <span class="kbd">➕</span>'],
-        ['3️⃣', 'לחצו <b>"הוסף"</b> – ה-🎬 יופיע במסך הבית!'],
+        ['3️⃣', 'לחצו <b>"הוסף"</b> – האייקון יופיע במסך הבית!'],
       ],
     };
   }
@@ -130,7 +130,7 @@ function instructions() {
       list: [
         ['1️⃣', 'לחצו על <b>≡</b> (תפריט) למטה בדפדפן'],
         ['2️⃣', 'בחרו <b>"הוסף דף אל"</b> → <b>"מסך הבית"</b>, או על אייקון ההתקנה <span class="kbd">⤓</span> בשורת הכתובת'],
-        ['3️⃣', 'אשרו – ה-🎬 יופיע במסך הבית!'],
+        ['3️⃣', 'אשרו – האייקון יופיע במסך הבית!'],
       ],
     };
   }
@@ -140,7 +140,7 @@ function instructions() {
       list: [
         ['1️⃣', 'לחצו על <b>⋮</b> למעלה בדפדפן'],
         ['2️⃣', 'בחרו <b>"התקנה"</b> / <b>"הוסף למסך הבית"</b>'],
-        ['3️⃣', 'אשרו – ה-🎬 יופיע במסך הבית!'],
+        ['3️⃣', 'אשרו – האייקון יופיע במסך הבית!'],
       ],
     };
   }
@@ -150,16 +150,16 @@ function instructions() {
       list: [
         ['1️⃣', 'לחצו על <b>⋮</b> (שלוש הנקודות) למעלה בדפדפן'],
         ['2️⃣', 'בחרו <b>"התקנת אפליקציה"</b> / <b>"הוסף למסך הבית"</b> → <b>"התקנה"</b>'],
-        ['3️⃣', 'אשרו – ה-🎬 יופיע במסך הבית!'],
+        ['3️⃣', 'אשרו – האייקון יופיע במסך הבית!'],
       ],
-      note: isSecure ? 'אם כבר התקנתם – Chrome יציג "פתיחת האפליקציה" במקום התקנה. חפשו את 🎬 במסך הבית.' : '',
+      note: isSecure ? 'אם כבר התקנתם – Chrome יציג "פתיחת האפליקציה" במקום התקנה. חפשו את English Quest במסך הבית.' : '',
     };
   }
   return {
     icon: '💻', title: 'התקנה במחשב',
     list: [
       ['1️⃣', 'בשורת הכתובת למעלה יש אייקון <b>התקנה</b> <span class="kbd">⊕</span> (Chrome / Edge)'],
-      ['2️⃣', 'או: תפריט <b>⋮</b> → <b>"התקנת English Studio"</b>'],
+      ['2️⃣', 'או: תפריט <b>⋮</b> → <b>"התקנת English Quest"</b>'],
       ['3️⃣', 'המשחק ייפתח בחלון משלו כמו אפליקציה'],
     ],
   };

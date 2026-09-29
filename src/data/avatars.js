@@ -3,7 +3,7 @@ export const AVATARS = [
   { id: 'gamer', emoji: '😎', name: 'גיימר', cost: 0 },
   { id: 'cat', emoji: '🐱', name: 'חתול', cost: 0 },
   { id: 'robot', emoji: '🤖', name: 'רובוט', cost: 0 },
-  { id: 'ninja', emoji: '�', name: 'גיבור-על', cost: 50 },
+  { id: 'ninja', emoji: '🦸', name: 'גיבור-על', cost: 50 },
   { id: 'alien', emoji: '👽', name: 'חייזר', cost: 80 },
   { id: 'unicorn', emoji: '🦄', name: 'חד-קרן', cost: 100 },
   { id: 'dragon', emoji: '🐲', name: 'דרקון', cost: 150 },

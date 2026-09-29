@@ -3,7 +3,7 @@ import { store } from '../core/store.js';
 import { navigate } from '../core/router.js';
 import { sfx, setMuted } from '../core/audio.js';
 import { burst } from '../core/confetti.js';
-import { MODES } from '../exercises/index.js';
+import { MODES, roundLength } from '../exercises/index.js';
 import { BADGES } from '../game/badges.js';
 import { AVATARS, avatarById } from '../data/avatars.js';
 import { applyTheme } from '../app.js';
@@ -27,6 +27,10 @@ export function renderProfile(root) {
           ),
         ),
         el('button.ghost.small', { type: 'button', onclick: () => navigate('/onboarding') }, '✏️ שינוי שם'),
+      ),
+
+      el('button.parent-link', { type: 'button', onclick: () => navigate('/parent') },
+        el('span', {}, '👨‍👩‍👦'), el('span', {}, el('strong', {}, 'מסך הורים'), el('small', {}, 'מה כבר יודעים ומה צריך לחזק')), el('span.chev', {}, '‹'),
       ),
 
       // avatar shop
@@ -66,7 +70,7 @@ export function renderProfile(root) {
         const pct = s?.total ? Math.round((s.correct / s.total) * 100) : 0;
         return el('div.stats-row', {},
           el('span.mode-icon', {}, m.icon), el('span.name', {}, m.title),
-          el('span.val', {}, s ? `${s.rounds} סבבים · ${pct}%${m.id === 'boss' ? ` · ${s.wins} ניצחונות` : m.id === 'memory' && s.bestTime ? ` · שיא ${s.bestTime}ש'` : s.best ? ` · שיא ${s.best}/10` : ''}` : '—'),
+          el('span.val', {}, s ? `${s.rounds} סבבים · ${pct}%${m.id === 'boss' ? ` · ${s.wins} ניצחונות` : s.best ? ` · שיא ${s.best}/${roundLength(m)}` : ''}` : '—'),
         );
       })),
 
@@ -80,7 +84,7 @@ export function renderProfile(root) {
           if (confirm('לאפס את כל ההתקדמות? אי אפשר לבטל.')) { store.reset(); navigate('/onboarding', { replace: true }); }
         } }, '🗑️ איפוס התקדמות'),
       ),
-      el('button.ghost', { type: 'button', onclick: () => navigate('/studio') }, '🏠 חזרה לסטודיו'),
+      el('button.ghost', { type: 'button', onclick: () => navigate('/studio') }, '🏠 חזרה למפה'),
     ),
   );
 }

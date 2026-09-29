@@ -3,7 +3,7 @@ import { PICTURE_WORDS, byLevel } from '../data/words.js';
 import { choiceGrid, wordChoice, prompt, pickFresh, distractorsFor, mediaCard, speakButton } from './common.js';
 
 export default {
-  id: 'vocabulary', title: 'כרטיסיות מילים', desc: 'תמונה → המילה באנגלית', icon: '🃏', kind: 'questions',
+  id: 'vocabulary', title: 'תמונה ומילה', desc: 'תמונה ← המילה באנגלית', icon: '🃏', kind: 'questions',
   create(level, api) {
     const pool = byLevel(PICTURE_WORDS, level);
     const used = new Set();
@@ -16,7 +16,7 @@ export default {
           render(container) {
             container.append(
               prompt('איזו מילה באנגלית מתאימה לתמונה?'),
-              mediaCard(target, { hint: level >= 3 ? '' : target.he }),
+              mediaCard(target, { hint: level === 1 ? target.he : '' }),
               speakButton(() => api.speak(target.example), 'משפט לדוגמה'),
               choiceGrid(items, {
                 render: wordChoice,
@@ -24,7 +24,7 @@ export default {
                 correct: (w) => w.en === target.en,
                 onPick: (w, ok) => {
                   api.speak(target.en);
-                  api.answer(ok, { text: ok ? `${target.en} = ${target.he}` : `התשובה: ${target.en} = ${target.he}` });
+                  api.answer(ok, { word: target.en, text: ok ? `${target.en} = ${target.he}` : `התשובה: ${target.en} = ${target.he}` });
                 },
               }),
             );

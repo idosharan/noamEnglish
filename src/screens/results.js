@@ -23,7 +23,7 @@ export function renderResults(root) {
 
   const headline = r.mode === 'boss'
     ? (r.won ? 'ניצחת את הבוס! 🏆' : 'הבוס ניצח הפעם… 💀')
-    : r.perfect ? 'סבב מושלם! 🌟' : pct >= 70 ? 'עבודה מעולה! 🎉' : pct >= 40 ? 'לא רע, ממשיכים! 💪' : 'עוד תרגול ותשתפר/י 🚀';
+    : r.perfect ? 'סבב מושלם! 🌟' : pct >= 70 ? 'עבודה מעולה! 🎉' : pct >= 40 ? 'לא רע, ממשיכים! 💪' : 'עוד קצת תרגול וזה יגיע 🚀';
 
   root.innerHTML = '';
   root.append(
@@ -31,6 +31,7 @@ export function renderResults(root) {
       el('div.result-avatar', {}, avatar.emoji),
       el('h1', {}, headline),
       el('div.stars', { 'aria-label': `${stars} כוכבים` }, ...[0, 1, 2].map((i) => el('span', { class: `star ${i < stars ? 'on' : ''}` }, '★'))),
+      r.mode === 'exam' ? el('div.grade', {}, el('small', {}, 'ציון'), el('strong.num', {}, String(pct))) : null,
       el('p.sub', {}, `${mode.icon} ${mode.title} · רמה ${LEVEL_LABELS[r.level]} · `, el('span.num', {}, `${r.correct}/${r.total}`), ` נכונות${r.elapsedSec != null ? ` · ${r.elapsedSec} שניות` : ''}`),
 
       el('div.reward-grid', {},
@@ -56,9 +57,9 @@ export function renderResults(root) {
       ) : null,
 
       el('div.actions.col', {},
-        el('button.primary.big', { type: 'button', onclick: () => navigate(`/play/${r.mode}?level=${r.level}`) }, '🔁 שחק/י שוב'),
-        r.level < 3 && pct >= 80 && r.mode !== 'boss' ? el('button.secondary', { type: 'button', onclick: () => navigate(`/play/${r.mode}?level=${r.level + 1}`) }, `⬆️ נסה/י רמה ${LEVEL_LABELS[r.level + 1]}`) : null,
-        el('button.ghost', { type: 'button', onclick: () => navigate('/studio') }, '🏠 חזרה לסטודיו'),
+        el('button.primary.big', { type: 'button', onclick: () => navigate(`/play/${r.mode}?level=${r.level}`) }, '🔁 עוד פעם'),
+        r.level < 3 && pct >= 80 && r.mode !== 'boss' ? el('button.secondary', { type: 'button', onclick: () => navigate(`/play/${r.mode}?level=${r.level + 1}`) }, `⬆️ נסו רמה ${LEVEL_LABELS[r.level + 1]}`) : null,
+        el('button.ghost', { type: 'button', onclick: () => navigate('/studio') }, '🗺️ חזרה למפה'),
       ),
     ),
   );

@@ -11,8 +11,8 @@ export function renderOnboarding(root) {
   const free = AVATARS.filter((a) => state.unlockedAvatars.includes(a.id));
 
   const input = el('input.text-input', {
-    type: 'text', maxlength: 18, required: true, placeholder: 'למשל: NoamGaming', value: state.profile.name || '',
-    'aria-label': 'שם הערוץ', autocomplete: 'nickname',
+    type: 'text', maxlength: 18, required: true, placeholder: 'למשל: Noam', value: state.profile.name || '',
+    'aria-label': 'שם השחקן', autocomplete: 'nickname',
   });
   const grid = el('div.avatar-grid', { role: 'radiogroup', 'aria-label': 'בחירת דמות' });
   const draw = () => {
@@ -26,12 +26,12 @@ export function renderOnboarding(root) {
   draw();
 
   const form = el('form.onboarding', {},
-    el('div.logo', {}, '🎬'),
-    el('h1', {}, 'ברוך הבא ל-English Studio!'),
-    el('p.sub', {}, 'פותחים ערוץ, עונים על שאלות באנגלית, אוספים סאבים ולייקים ומנצחים בוסים.'),
-    el('label', {}, 'איך ייקרא הערוץ שלך?', input),
-    el('div', {}, el('p.label', {}, 'בחר/י דמות (עוד דמויות נפתחות בהמשך):'), grid),
-    el('button.primary.big', { type: 'submit' }, '🚀 פתח את הערוץ'),
+    el('div.logo', {}, '🗺️'),
+    el('h1', {}, 'ברוך הבא ל-English Quest!'),
+    el('p.sub', {}, 'מתכוננים למבחן המיפוי: עוברים עולמות, אוספים כוכבים וסאבים ומנצחים בוסים.'),
+    el('label', {}, 'איך קוראים לשחקן שלך?', input),
+    el('div', {}, el('p.label', {}, 'בחרו דמות (עוד דמויות נפתחות בהמשך):'), grid),
+    el('button.primary.big', { type: 'submit' }, '🚀 יוצאים לדרך'),
   );
   form.addEventListener('submit', (e) => {
     e.preventDefault();

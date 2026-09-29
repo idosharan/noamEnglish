@@ -1,9 +1,9 @@
 import { el, escapeHtml } from '../core/utils.js';
 import { store } from '../core/store.js';
-import { speak, sfx, vibrate, stopSpeaking } from '../core/audio.js';
+import { speak, speakList, speakLetter, sfx, vibrate, stopSpeaking } from '../core/audio.js';
 import { burst } from '../core/confetti.js';
 import { navigate } from '../core/router.js';
-import { modeById, QUESTIONS_PER_ROUND, LEVEL_LABELS } from '../exercises/index.js';
+import { modeById, roundLength, worldOf, LEVEL_LABELS } from '../exercises/index.js';
 import { maxDifficultyFor, comboMultiplier } from '../game/xp.js';
 import { applyRound } from '../game/round.js';
 import { setLastResult } from './results.js';
@@ -13,6 +13,7 @@ export function renderPlay(root, { params, query }) {
   if (!mode) { navigate('/studio', { replace: true }); return; }
   const state = store.get();
   const level = Math.min(Number(query.level) || 1, maxDifficultyFor(state.level));
+  const QUESTIONS_PER_ROUND = roundLength(mode);
 
   const answers = [];
   let combo = 0;
@@ -32,17 +33,19 @@ export function renderPlay(root, { params, query }) {
   );
 
   root.innerHTML = '';
-  root.append(el('section.play', {}, header, mode.kind === 'questions' ? dots : null, stage, feedback));
+  root.append(el('section.play', { dataset: { world: worldOf(mode.id)?.color || mode.id } }, header, mode.kind === 'questions' ? dots : null, stage, feedback));
   drawDots();
 
   const api = {
     level,
     speak: (text, opts) => speak(text, opts),
+    speakList,
+    speakLetter,
     sfx,
     onCleanup: (fn) => cleanups.push(fn),
-    answer(correct, { text = '', silent = false } = {}) {
+    answer(correct, { text = '', word = null } = {}) {
       if (finished) return;
-      answers.push({ correct });
+      answers.push(word ? { correct, word } : { correct });
       combo = correct ? combo + 1 : 0;
       drawDots();
       drawCombo();
@@ -62,7 +65,6 @@ export function renderPlay(root, { params, query }) {
           advanceTimer = setTimeout(nextQuestion, correct ? 900 : 1600);
         }
       }
-      void silent;
     },
     finish(extra) { finish(extra || {}); },
   };

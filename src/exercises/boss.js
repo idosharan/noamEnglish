@@ -1,16 +1,18 @@
 import { el, pick } from '../core/utils.js';
-import letters from './letters.js';
+import firstletter from './firstletter.js';
+import hearletter from './hearletter.js';
 import vocabulary from './vocabulary.js';
-import vowels from './vowels.js';
-import sentences from './sentences.js';
-import spelling from './spelling.js';
+import missing from './missing.js';
+import digraph from './digraph.js';
+import translate from './translate.js';
+import numbers from './numbers.js';
 import listening from './listening.js';
 
 const BOSSES = [
-  { name: 'Glitch King', emoji: '👾', he: 'מלך הגליץ\'' },
-  { name: 'Lag Dragon', emoji: '🐉', he: 'דרקון הלאג' },
-  { name: 'Dislike Bot', emoji: '🤖', he: 'רובוט הדיסלייקים' },
-  { name: 'Spam Ghost', emoji: '👻', he: 'רוח הספאם' },
+  { name: 'Letter Monster', emoji: '👾', he: 'מפלצת האותיות' },
+  { name: 'Spelling Dragon', emoji: '🐉', he: 'דרקון האיות' },
+  { name: 'Robo Test', emoji: '🤖', he: 'רובוט המבחן' },
+  { name: 'Word Ghost', emoji: '👻', he: 'רוח המילים' },
 ];
 
 export default {
@@ -88,7 +90,7 @@ export default {
                 setTimeout(nextQuestion, correct ? 500 : 900);
               },
             };
-            const gens = [letters, vocabulary, vowels, sentences, spelling, listening].map((m) => m.create(subLevel, subApi));
+            const gens = [firstletter, hearletter, vocabulary, missing, digraph, translate, numbers, listening].map((m) => m.create(subLevel, subApi));
 
             function nextQuestion() {
               if (ended) return;

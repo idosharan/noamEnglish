@@ -7,6 +7,7 @@ import { renderStudio } from './screens/studio.js';
 import { renderPlay } from './screens/play.js';
 import { renderResults } from './screens/results.js';
 import { renderProfile } from './screens/profile.js';
+import { renderParent } from './screens/parent.js';
 
 export const installState = {
   get prompt() { return window.__installPrompt || null; },
@@ -34,7 +35,7 @@ export async function promptInstall() {
 
 export function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f5f3ff' : '#0b0f1e');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#fff8ec' : '#0f1226');
 }
 
 export function toast(msg, { actionLabel, onAction, duration = 2500 } = {}) {
@@ -72,6 +73,7 @@ function boot() {
   onRoute('/play/:mode', guard(renderPlay));
   onRoute('/results', guard(renderResults));
   onRoute('/profile', guard(renderProfile));
+  onRoute('/parent', guard(renderParent));
   setNotFound(() => navigate('/', { replace: true }));
 
   window.addEventListener('hashchange', () => updateNav(nav));
@@ -84,7 +86,7 @@ function boot() {
   });
   window.addEventListener('appinstalled', () => {
     document.querySelectorAll('.install-banner, .sheet-backdrop').forEach((b) => b.remove());
-    toast('המשחק הותקן! חפשו את 🎬 במסך הבית 🎉');
+    toast('המשחק הותקן! חפשו את האייקון במסך הבית 🎉');
   });
 
   registerServiceWorker();
@@ -99,7 +101,7 @@ function updateNav(nav) {
   const bossLink = nav.querySelector('.boss-link');
   if (bossLink && state) bossLink.href = `#/play/boss?level=${maxDifficultyFor(state.level)}`;
   nav.querySelectorAll('a').forEach((a) => {
-    const active = path === a.dataset.route || (a.dataset.route === '/studio' && path === '/results');
+    const active = path === a.dataset.route || (a.dataset.route === '/studio' && path === '/results') || (a.dataset.route === '/profile' && path === '/parent');
     a.classList.toggle('active', active);
     a.setAttribute('aria-current', active ? 'page' : 'false');
   });

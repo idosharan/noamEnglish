@@ -18,6 +18,7 @@ export function defaultState() {
     quests: { day: null, items: [] },
     badges: [],
     stats: {},
+    words: {},
     unlockedAvatars: ['gamer', 'cat', 'robot'],
     settings: { muted: false, theme: 'dark', reducedMotion: false },
     onboarded: false,
@@ -77,6 +78,17 @@ export function recordRound(state, { mode, correct, total, perfect, won, elapsed
     bestTime: elapsedSec != null ? Math.min(cur.bestTime ?? Infinity, elapsedSec) : cur.bestTime,
   };
   return { ...state, stats: { ...state.stats, [mode]: next }, bestCombo: Math.max(state.bestCombo || 0, maxCombo) };
+}
+
+// Pure: per-word right/wrong counters for the parent view. answers: [{correct, word?}]
+export function recordWords(state, answers, day = todayKey()) {
+  const words = { ...(state.words || {}) };
+  for (const a of answers) {
+    if (!a.word) continue;
+    const cur = words[a.word] || { c: 0, w: 0, last: null };
+    words[a.word] = { c: cur.c + (a.correct ? 1 : 0), w: cur.w + (a.correct ? 0 : 1), last: day, lastOk: !!a.correct };
+  }
+  return { ...state, words };
 }
 
 // ---- persistence wrapper (browser) ----

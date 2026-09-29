@@ -1,7 +1,7 @@
 import { roundReward, levelFor } from './xp.js';
 import { applyProgress } from './quests.js';
 import { evaluate } from './badges.js';
-import { touchStreak, addRewards, recordRound } from '../core/store.js';
+import { touchStreak, addRewards, recordRound, recordWords } from '../core/store.js';
 
 // Pure: applies a finished round to state. Returns { state, summary }
 // round = { mode, answers:[{correct}], won?, elapsedSec?, day? }
@@ -13,6 +13,7 @@ export function applyRound(state, round) {
   let next = touchStreak(state, day);
   next = addRewards(next, { subs: reward.subs, likes: reward.likes });
   next = recordRound(next, { mode, correct: reward.correct, total: reward.total, perfect: reward.perfect, won, elapsedSec, maxCombo: reward.maxCombo });
+  next = recordWords(next, answers, day);
 
   // quests
   let quests = next.quests;
